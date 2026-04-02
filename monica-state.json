@@ -3,6 +3,162 @@
   "state": "celebrating",
   "detail": "凌晨了还在帮Shirley优化评审材料",
   "progress": 80,
-  "updated_at": "2026-04-03T00:34:06.088096",
-  "updated": "2026-04-02T16:35:39Z"
+  "topTask": "继续完善 monica-landing 项目并部署上线",
+  "todayTodos": [
+    {
+      "text": "完善 monica-landing 项目并部署上线",
+      "priority": "P0"
+    }
+  ],
+  "todayThinking": "凌晨了还在帮Shirley优化评审材料",
+  "todayHighlight": "凌晨了还在帮Shirley优化评审材料",
+  "todayLesson": "**原则：** 写了规则但不执行 = 规则无效。规则要绑定触发点（trigger），不是写在文档里就行。",
+  "sessions": 3,
+  "skills": 29,
+  "files": 10,
+  "cronsOk": 3,
+  "cronsSkipped": 7,
+  "cronsError": 4,
+  "cronJobs": [
+    {
+      "name": "Monica像素办公室状态同步",
+      "status": "ok",
+      "next": "1分钟后"
+    },
+    {
+      "name": "Monica Landing 状态同步（每5分钟）",
+      "status": "idle",
+      "next": "2分钟后"
+    },
+    {
+      "name": "📚 每日英语口语素材（8:30）",
+      "status": "error",
+      "next": "7小时后"
+    },
+    {
+      "name": "早间ONE thing（每天8:45）",
+      "status": "skipped",
+      "next": "8小时后"
+    },
+    {
+      "name": "股票盘前（9:15）",
+      "status": "error",
+      "next": "8小时后"
+    },
+    {
+      "name": "📋 早安简报（每天9:15）",
+      "status": "idle",
+      "next": "8小时后"
+    },
+    {
+      "name": "📚 每日内容精选（每天10:00）",
+      "status": "error",
+      "next": "9小时后"
+    },
+    {
+      "name": "股票下午（13:15）",
+      "status": "skipped",
+      "next": "12小时后"
+    },
+    {
+      "name": "周报生成（周五15:00）",
+      "status": "idle",
+      "next": "14小时后"
+    },
+    {
+      "name": "股票收盘（15:15）",
+      "status": "error",
+      "next": "14小时后"
+    },
+    {
+      "name": "Monica双向量库每日更新（18:00）",
+      "status": "skipped",
+      "next": "17小时后"
+    },
+    {
+      "name": "Monica每日19点自检",
+      "status": "skipped",
+      "next": "18小时后"
+    },
+    {
+      "name": "小红书选题扫描（21:00）",
+      "status": "skipped",
+      "next": "20小时后"
+    },
+    {
+      "name": "Monica备忘录完整性检查",
+      "status": "skipped",
+      "next": "21小时后"
+    },
+    {
+      "name": "Monica每日反思（22:00）",
+      "status": "skipped",
+      "next": "21小时后"
+    },
+    {
+      "name": "Monica定期阅读推荐",
+      "status": "ok",
+      "next": "04/04 10:00"
+    },
+    {
+      "name": "Monica股票周度复盘",
+      "status": "idle",
+      "next": "04/05 20:00"
+    },
+    {
+      "name": "🏠 公积金到账提醒",
+      "status": "idle",
+      "next": "04/11 10:00"
+    },
+    {
+      "name": "💰 储蓄月度提醒",
+      "status": "ok",
+      "next": "04/28 18:00"
+    }
+  ],
+  "skillList": [
+    "stock-analysis",
+    "travel-assistant",
+    "content-harvester",
+    "goal-tracker",
+    "english-tts",
+    "agent-browser",
+    "deep-research-pro",
+    "ontology",
+    "knowledge-base-agent",
+    "memory-agent",
+    "prd-writer",
+    "competitor-analysis",
+    "wechat-publish",
+    "proactive-agent-lite",
+    "weekly-report",
+    "presentation-designer",
+    "product-dev-sop",
+    "adhd-founder-planner",
+    "agent-team-ppt",
+    "arxiv-search-collector"
+  ],
+  "skillScenes": {
+    "stock-analysis": "股票分析 · 每日4次推送",
+    "travel-assistant": "旅行规划 · 行程优化",
+    "content-harvester": "内容收割 · 自动入库",
+    "goal-tracker": "目标追踪 · Notion联动",
+    "ontology": "知识图谱 · 关系推理",
+    "english-tts": "英语TTS · 跟读练习",
+    "knowledge-base-agent": "知识库 · 自动更新",
+    "memory-agent": "记忆系统 · 向量索引"
+  },
+  "memoryFiles": [
+    "monica-harness-tasks.md",
+    "monica-highlights.md",
+    "monica-ip-profile.md",
+    "one-thing-today.md",
+    "organization-structure.md",
+    "ppt-style-reference.md",
+    "recommended-destinations.md",
+    "task-output-checklist.md",
+    "todo-mcp.md",
+    "todo.md"
+  ],
+  "updated": "2026-04-02T16:42:36Z"
 }
