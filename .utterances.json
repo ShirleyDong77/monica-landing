@@ -1,0 +1,10 @@
+{
+  "origins": [
+    "https://shirleydong77.github.io",
+    "http://127.0.0.1:19000",
+    "http://localhost:19000"
+  ],
+  "defaultComment": "👋 来说点什么吧！",
+  "issueNumber": 1,
+  "repo": "ShirleyDong77/monica-landing"
+}

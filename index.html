@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧚 Monica精灵办公室</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#faf8f5;--panel-bg:#fff;--panel-shadow:0 2px 12px rgba(0,0,0,0.07);--border:#ece8e0;--text:#2c2c2c;--text-dim:#999;--accent:#7c6cd9;--accent2:#5a9cf8;--success:#52c96a;--warning:#f0a030;--danger:#e05555;--pink:#e91e8b;--tag-bg:#f3f0ff;--tag-border:#d8d0f8}
+[data-theme="dark"]{--bg:#13111f;--panel-bg:#1e1b2e;--panel-shadow:0 2px 16px rgba(0,0,0,0.4);--border:#2d2a42;--text:#e8e0ff;--text-dim:#8a80a0;--tag-bg:rgba(124,108,217,0.15);--tag-border:rgba(124,108,217,0.35)}
+[data-theme="blue"]{--bg:#f0f7ff;--panel-bg:#fff;--panel-shadow:0 2px 12px rgba(90,156,248,0.12);--border:#d0e4ff;--accent:#4a8ef0;--accent2:#2d6cdf;--tag-bg:#e8f2ff;--tag-border:#b8d4fb}
+[data-theme="green"]{--bg:#f2f9f2;--panel-bg:#fff;--panel-shadow:0 2px 12px rgba(76,175,80,0.1);--border:#c8e6c9;--accent:#4caf50;--accent2:#388e3c;--tag-bg:#e8f5e9;--tag-border:#a5d6a7}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;min-height:100vh;transition:background .3s,color .3s}
+.header{background:var(--panel-bg);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--panel-shadow)}
+.header-left{display:flex;align-items:center;gap:20px}
+.site-title{font-size:1.1em;font-weight:700;color:var(--accent);letter-spacing:1px}
+.header-meta{display:flex;gap:14px;font-size:.78em;color:var(--text-dim)}
+.header-meta span{display:flex;align-items:center;gap:4px}
+.theme-btns{display:flex;gap:6px}
+.theme-btn{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .2s}
+.theme-btn:hover{transform:scale(1.2)}
+.theme-btn.active{border-color:var(--accent)}
+.theme-btn[data-t=light]{background:#faf8f5;border-color:#d8d4cd}
+.theme-btn[data-t=dark]{background:#1e1b2e}
+.theme-btn[data-t=blue]{background:#d0e4ff}
+.theme-btn[data-t=green]{background:#c8e6c9}
+.container{max-width:1100px;margin:0 auto;padding:22px 20px 40px}
+.sprite-stage{background:var(--panel-bg);border-radius:20px;box-shadow:var(--panel-shadow);border:1px solid var(--border);margin-bottom:20px;overflow:hidden}
+.sprite-scene{width:100%;height:280px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#f8f4ff 0%,#ede8ff 50%,#e0d8ff 100%)}
+[data-theme=dark] .sprite-scene{background:linear-gradient(180deg,#1a1530 0%,#14112a 50%,#0f0d20 100%)}
+.particle{position:absolute;width:6px;height:6px;border-radius:50%;opacity:0;pointer-events:none}
+.sprite-scene.active-particles .particle{animation:floatUp 2.5s ease-out infinite}
+@keyframes floatUp{0%{opacity:.8;transform:translateY(0)}100%{opacity:0;transform:translateY(-80px)}}
+.char-shadow{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:radial-gradient(ellipse,rgba(100,80,200,.2) 0%,transparent 70%);border-radius:50%;animation:shadowPulse 3s ease-in-out infinite}
+@keyframes shadowPulse{0%,100%{transform:translateX(-50%) scaleX(1);opacity:.2}50%{transform:translateX(-50%) scaleX(.8);opacity:.12}}
+.char-wrap{position:relative;display:flex;flex-direction:column;align-items:center;z-index:2}
+.char-sprite{width:210px;height:210px;object-fit:contain;image-rendering:auto;transition:opacity .25s;filter:drop-shadow(0 8px 24px rgba(124,108,217,.35))}
+.char-sprite.fade{opacity:0}
+.state-bubble{position:absolute;top:14px;right:18px;background:var(--accent);color:#fff;padding:6px 14px;border-radius:20px;font-size:.78em;font-weight:700;letter-spacing:.5px;box-shadow:0 2px 10px rgba(124,108,217,.4);transition:all .4s}
+.state-bubble.error{background:var(--danger);box-shadow:0 2px 10px rgba(224,85,85,.4)}
+.state-bubble.celebrating{background:linear-gradient(135deg,#f0a030,#e91e8b);box-shadow:0 2px 10px rgba(233,30,139,.4)}
+.task-detail{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);border:1px solid var(--border);padding:5px 14px;border-radius:12px;font-size:.72em;color:var(--text);max-width:80%;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(4px)}
+[data-theme=dark] .task-detail{background:rgba(30,27,46,.92)}
+.sprite-info{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-top:1px solid var(--border)}
+.sprite-name{font-size:1.1em;font-weight:700;color:var(--accent)}
+.sprite-sub{font-size:.72em;color:var(--text-dim);margin-top:2px}
+.sprite-meta{display:flex;gap:18px;font-size:.72em;color:var(--text-dim)}
+.sprite-meta span{display:flex;align-items:center;gap:4px}
+@keyframes idleFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+@keyframes thinkRock{0%,100%{transform:translateY(0) rotate(-2deg)}25%{transform:translateY(-6px) rotate(1deg)}75%{transform:translateY(-8px) rotate(-1deg)}}
+@keyframes bouncyExcited{0%,100%{transform:translateY(0) scale(1)}15%{transform:translateY(-22px) scale(1.05,.95)}30%{transform:translateY(0) scale(.97,1.03)}45%{transform:translateY(-14px) scale(1.03,.97)}60%{transform:translateY(0) scale(.99,1.01)}75%{transform:translateY(-6px)}}
+@keyframes typeWiggle{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-4px) rotate(-1.5deg)}40%{transform:translateY(0) rotate(.5deg)}60%{transform:translateY(-3px) rotate(-1deg)}80%{transform:translateY(0) rotate(.5deg)}}
+@keyframes researchSweep{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-8px) rotate(4deg)}75%{transform:translateY(-5px) rotate(-3deg)}}
+@keyframes energyPunch{0%,100%{transform:translateY(0) scale(1)}10%{transform:translateY(-5px) scale(1.08,.92)}30%{transform:translateY(-18px) scale(.95,1.05) rotate(-3deg)}50%{transform:translateY(0) scale(1.1,.9)}70%{transform:translateY(-10px) scale(1.05)}85%{transform:translateY(0) scale(.98,1.02)}}
+@keyframes magicSwirl{0%{transform:translateY(0) rotate(0) scale(1)}25%{transform:translateY(-12px) rotate(3deg) scale(1.03)}50%{transform:translateY(-5px) rotate(-2deg) scale(.98)}75%{transform:translateY(-15px) rotate(2deg) scale(1.02)}}
+@keyframes celebrateJump{0%,100%{transform:translateY(0) scale(1) rotate(0)}20%{transform:translateY(-30px) scale(1.1,.9) rotate(-5deg)}40%{transform:translateY(0) scale(.92,1.08) rotate(3deg)}60%{transform:translateY(-22px) scale(1.08,.92) rotate(-4deg)}80%{transform:translateY(0) scale(.96,1.04) rotate(2deg)}}
+@keyframes worryWobble{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-4px) rotate(-3deg)}35%{transform:translateY(0) rotate(2.5deg)}55%{transform:translateY(-6px) rotate(-2deg)}75%{transform:translateY(0) rotate(1.5deg)}}
+.char-sprite[data-state=idle]{animation:idleFloat 3s ease-in-out infinite}
+.char-sprite[data-state=thinking]{animation:thinkRock 2.8s ease-in-out infinite}
+.char-sprite[data-state=receiving]{animation:bouncyExcited 1.4s ease-in-out infinite}
+.char-sprite[data-state=writing]{animation:typeWiggle .9s ease-in-out infinite}
+.char-sprite[data-state=researching]{animation:researchSweep 2s ease-in-out infinite}
+.char-sprite[data-state=executing]{animation:energyPunch 1.2s ease-in-out infinite}
+.char-sprite[data-state=syncing]{animation:magicSwirl 2s ease-in-out infinite}
+.char-sprite[data-state=celebrating]{animation:celebrateJump 1s ease-in-out infinite}
+.char-sprite[data-state=error]{animation:worryWobble .8s ease-in-out infinite}
+.sprite-scene.celebrating-scene{background:linear-gradient(180deg,#fff4f9 0%,#ffe8f0 50%,#ffd6e8 100%)}
+[data-theme=dark] .sprite-scene.celebrating-scene{background:linear-gradient(180deg,#2a1535 0%,#1f1028 50%,#150a1a 100%)}
+.sprite-scene.error-scene{background:linear-gradient(180deg,#fff5f5 0%,#ffe8e8 50%,#ffd6d6 100%)}
+[data-theme=dark] .sprite-scene.error-scene{background:linear-gradient(180deg,#2a1515 0%,#1f0f0f 50%,#150808 100%)}
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:700px){.main-grid{grid-template-columns:1fr}}
+.panel{background:var(--panel-bg);border-radius:16px;box-shadow:var(--panel-shadow);border:1px solid var(--border);overflow:hidden}
+.panel-header{padding:13px 18px;border-bottom:1px solid var(--border);font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);display:flex;align-items:center;gap:7px}
+.panel-body{padding:16px 18px}
+.work-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat-card{background:var(--tag-bg);border:1px solid var(--tag-border);border-radius:10px;padding:12px 8px;text-align:center}
+.stat-card .num{font-size:1.5em;font-weight:700;color:var(--accent);line-height:1}
+.stat-card .lbl{font-size:.65em;color:var(--text-dim);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card.ok .num{color:var(--success)}
+.stat-card.warn .num{color:var(--warning)}
+.stat-card.err .num{color:var(--danger)}
+.insight-label{font-size:.65em;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:5px}
+.insight-block{background:var(--tag-bg);border-left:3px solid var(--accent);padding:9px 12px;border-radius:0 7px 7px 0;font-size:.83em;line-height:1.6;color:var(--text);margin-bottom:10px}
+.highlight-block{border-left-color:var(--success);background:rgba(82,201,106,0.06)}[data-theme=dark] .highlight-block{background:rgba(82,201,106,0.08)}.lesson-block{border-left-color:var(--warning);background:rgba(240,160,48,0.06)}[data-theme=dark] .lesson-block{background:rgba(240,160,48,0.08)}.insight-block:last-child{margin-bottom:0}
+.todo-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.83em}
+.todo-item:last-child{border-bottom:none;padding-bottom:0}
+.todo-prio{font-size:.6em;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.todo-prio.p0{background:#fde8e8;color:var(--danger)}
+.todo-prio.p1{background:#fff3e0;color:var(--warning)}
+.todo-prio.p2{background:#e8f5e9;color:var(--success)}
+.todo-text{flex:1;line-height:1.5}
+.empty{font-size:.8em;color:var(--text-dim);text-align:center;padding:10px 0}
+.cron-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.8em}
+.cron-item:last-child{border-bottom:none}
+.cron-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cron-dot.ok{background:var(--success)}
+.cron-dot.error{background:var(--danger)}
+.cron-dot.skipped{background:var(--warning)}
+.cron-dot.idle{background:var(--text-dim)}
+.cron-name{flex:1}
+.cron-next{color:var(--text-dim);font-size:.72em;white-space:nowrap}
+.skills-shelf{display:flex;flex-wrap:wrap;gap:8px}
+.skill-book{background:var(--tag-bg);border:1px solid var(--tag-border);border-radius:8px;padding:7px 11px;font-size:.75em;color:var(--accent)}
+.skill-scene{font-size:.68em;color:var(--text-dim);margin-top:2px}
+.cabinet-btns{display:flex;flex-wrap:wrap;gap:7px}
+.cabinet-btn{background:var(--panel-bg);border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-size:.73em;color:var(--text);cursor:pointer;text-decoration:none;transition:all .2s}
+.cabinet-btn:hover{background:var(--tag-bg);border-color:var(--tag-border);color:var(--accent)}
+.gb-form{display:flex;gap:8px;margin-bottom:14px}
+.gb-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:.82em;color:var(--text);outline:none;transition:border-color .2s}
+.gb-input:focus{border-color:var(--accent)}
+.gb-submit{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 15px;font-size:.82em;cursor:pointer}
+.gb-submit:hover{opacity:.85}
+.gb-msgs{max-height:180px;overflow-y:auto}
+.gb-msg{padding:7px 0;border-bottom:1px solid var(--border);font-size:.78em}
+.gb-msg:last-child{border-bottom:none}
+.gb-author{font-weight:600;color:var(--accent);margin-right:6px}
+.gb-text{color:var(--text);line-height:1.5}
+.gb-time{font-size:.68em;color:var(--text-dim);margin-top:2px}
+.loading{color:var(--text-dim);font-size:.8em;padding:4px 0}
+.footer{text-align:center;font-size:.7em;color:var(--text-dim);padding:18px;border-top:1px solid var(--border);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <div class="site-title">🧚 Monica精灵办公室</div>
+    <div class="header-meta">
+      <span id="hDate">—</span>
+      <span id="hCity">苏州</span>
+      <span id="hWeather">—</span>
+    </div>
+  </div>
+  <div class="theme-btns">
+    <button class="theme-btn active" data-t="light" title="浅色"></button>
+    <button class="theme-btn" data-t="dark" title="深色"></button>
+    <button class="theme-btn" data-t="blue" title="冰蓝"></button>
+    <button class="theme-btn" data-t="green" title="森绿"></button>
+  </div>
+</div>
+<div class="container">
+  <div class="sprite-stage">
+    <div class="sprite-scene" id="spriteScene">
+      <div class="particle" style="left:15%;bottom:40%;animation-delay:0s;background:#a78bfa"></div>
+      <div class="particle" style="left:30%;bottom:35%;animation-delay:.5s;background:#818cf8"></div>
+      <div class="particle" style="left:70%;bottom:42%;animation-delay:1s;background:#c084fc"></div>
+      <div class="particle" style="left:85%;bottom:38%;animation-delay:1.5s;background:#a78bfa"></div>
+      <div class="particle" style="left:50%;bottom:50%;animation-delay:.8s;background:#7c3aed"></div>
+      <div class="particle" style="left:22%;bottom:30%;animation-delay:1.2s;background:#e879f9"></div>
+      <div class="particle" style="left:78%;bottom:32%;animation-delay:.3s;background:#818cf8"></div>
+      <div class="char-shadow"></div>
+      <div class="char-wrap">
+        <img class="char-sprite" id="charSprite" src="sprites/idle.png" alt="Monica精灵" data-state="idle">
+      </div>
+      <div class="state-bubble" id="stateBubble">🧚 待命中</div>
+      <div class="task-detail" id="taskDetail">—</div>
+    </div>
+    <div class="sprite-info">
+      <div>
+        <div class="sprite-name">Monica 精灵</div>
+        <div class="sprite-sub">Shirley的数字分身 · AI办公室</div>
+      </div>
+      <div class="sprite-meta">
+        <span id="mUpdated">—</span>
+        <span>🔄 自动刷新 30s</span>
+      </div>
+    </div>
+  </div>
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header">💼 Monica 工位</div>
+      <div class="panel-body">
+        <div style="margin-bottom:12px"><div class="insight-label">当前状态</div><div class="insight-block" id="workMode">—</div></div>
+        <div style="margin-bottom:12px"><div class="insight-label">🔴 今日最重要</div><div class="insight-block" id="topTask">—</div></div>
+        <div style="margin-bottom:12px"><div class="insight-label">📋 今日待办</div><div id="todoList"><div class="loading">加载中</div></div></div>
+        <div style="margin-bottom:12px" id="highlightSec"><div class="insight-label">🌟 今日高光</div><div class="insight-block highlight-block" id="todayHighlight">—</div></div>
+        <div style="margin-bottom:0" id="lessonSec"><div class="insight-label">📝 今日教训</div><div class="insight-block lesson-block" id="todayLesson">—</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">📊 核心指标</div>
+      <div class="panel-body">
+        <div class="work-stats">
+          <div class="stat-card"><div class="num" id="sSessions">—</div><div class="lbl">活跃会话</div></div>
+          <div class="stat-card"><div class="num" id="sSkills">—</div><div class="lbl">技能数</div></div>
+          <div class="stat-card"><div class="num" id="sFiles">—</div><div class="lbl">记忆文件</div></div>
+          <div class="stat-card ok"><div class="num" id="sCronOk">—</div><div class="lbl">Cron正常</div></div>
+          <div class="stat-card warn"><div class="num" id="sCronSkip">—</div><div class="lbl">Cron跳过</div></div>
+          <div class="stat-card err"><div class="num" id="sCronErr">—</div><div class="lbl">Cron错误</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel"><div class="panel-header">⏰ CRON 任务</div><div class="panel-body"><div id="cronList"><div class="loading">加载中</div></div></div></div>
+    <div class="panel"><div class="panel-header">🛠 技能墙</div><div class="panel-body"><div class="skills-shelf" id="skillList"><div class="loading">加载中</div></div></div></div>
+    <div class="panel"><div class="panel-header">🗄️ 档案柜</div><div class="panel-body"><div class="cabinet-btns" id="cabinetList"><div class="loading">加载中</div></div></div></div>
+    <div class="panel">
+      <div class="panel-header">💬 留言板 <span style="font-weight:400;text-transform:none;font-size:.65em;color:var(--text-dim)">本地存储 · 仅你自己可见</span></div>
+      <div class="panel-body">
+        <div class="gb-form" style="margin-bottom:8px">
+          <input class="gb-input" id="gbName" placeholder="你的名字（选填）" maxlength="50" style="flex:0 0 120px">
+          <input class="gb-input" id="gbInput" placeholder="给 Monica 留个言..." maxlength="300">
+          <button class="gb-submit" id="gbSubmit">发送</button>
+        </div>
+        <div class="gb-msgs" id="gbMsgs"><div class="loading">加载中</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">Monica精灵办公室 · 实时同步 · <span id="refreshTime">—</span> · <a href="https://github.com/ShirleyDong77/monica-landing" style="color:var(--text-dim)" target="_blank">源码</a></div>
+<script>
+var SPRITES={
+idle:"sprites/idle.png",
+thinking:"sprites/thinking.png",
+receiving:"sprites/receiving.png",
+writing:"sprites/writing.png",
+researching:"sprites/researching.png",
+executing:"sprites/executing.png",
+syncing:"sprites/syncing.png",
+celebrating:"sprites/celebrating.png",
+error:"sprites/error.png"
+};
+var STATE_LABELS={
+idle:"🧚 待命中",
+thinking:"💭 思考中",
+receiving:"📬 接收任务",
+writing:"✍️ 写文档",
+researching:"🔍 搜索中",
+executing:"⚡ 执行任务",
+syncing:"💾 同步中",
+celebrating:"🎉 庆祝中",
+error:"🐛 出错了"
+};
+function setSprite(state){
+var sprite=document.getElementById("charSprite");
+var bubble=document.getElementById("stateBubble");
+var scene=document.getElementById("spriteScene");
+var detail=document.getElementById("taskDetail");
+var s=state||"idle";
+sprite.classList.add("fade");
+setTimeout(function(){
+sprite.src=SPRITES[s]||SPRITES.idle;
+sprite.dataset.state=s;
+sprite.classList.remove("fade");
+},200);
+bubble.textContent=STATE_LABELS[s]||STATE_LABELS.idle;
+bubble.className="state-bubble"+(s==="celebrating"?" celebrating":s==="error"?" error":"");
+scene.className="sprite-scene"+(s==="celebrating"?" celebrating-scene":s==="error"?" error-scene":"");
+if(["syncing","celebrating","receiving","executing"].indexOf(s)!==-1){
+scene.classList.add("active-particles");
+}
+var d=window._mState||{};
+detail.textContent=d.detail||"—";
+}
+var STATE_URL="monica-state.json";
+
+function es(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
+function timeAgo(iso){if(!iso)return"—";var d=(Date.now()-new Date(iso).getTime())/1000;if(d<60)return Math.floor(d)+"秒前";if(d<3600)return Math.floor(d/60)+"分钟前";if(d<86400)return Math.floor(d/3600)+"小时前";return Math.floor(d/86400)+"天前";}
+function initTheme(){var saved=localStorage.getItem("monica-theme")||"light";document.documentElement.setAttribute("data-theme",saved);document.querySelectorAll(".theme-btn").forEach(function(b){b.classList.toggle("active",b.dataset.t===saved);});}
+document.querySelectorAll(".theme-btn").forEach(function(b){b.addEventListener("click",function(){document.documentElement.setAttribute("data-theme",b.dataset.t);localStorage.setItem("monica-theme",b.dataset.t);document.querySelectorAll(".theme-btn").forEach(function(x){x.classList.remove("active");});b.classList.add("active");});});
+async function fetchState(){try{var r=await fetch(STATE_URL+"?v="+Date.now(),{signal:AbortSignal.timeout(6000)});if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+function renderState(d){if(!d)return;window._mState=d;setSprite(d.state);document.getElementById("mUpdated").textContent="更新于 "+timeAgo(d.updated);document.getElementById("workMode").innerHTML="<b>"+(STATE_LABELS[d.state]||"🧚")+"</b> — "+(d.detail||"无任务");document.getElementById("topTask").textContent=d.topTask||"今日暂无重点任务";var todos=d.todayTodos||[];document.getElementById("todoList").innerHTML=todos.length?todos.map(function(t){var p=(t.priority||"P2").toLowerCase();return "<div class=\"todo-item\"><span class=\"todo-prio "+p+"\">"+(t.priority||"P2")+"</span><div class=\"todo-text\">"+es(t.text||t)+"</div></div>";}).join(""):"<div class=\"empty\">今日暂无待办</div>";var hl=d.todayHighlight||d.highlight;if(hl){document.getElementById("highlightSec").style.display="block";document.getElementById("todayHighlight").textContent=hl;}else{document.getElementById("highlightSec").style.display="none";}var ls=d.todayLesson||d.lesson;if(ls){document.getElementById("lessonSec").style.display="block";document.getElementById("todayLesson").textContent=ls;}else{document.getElementById("lessonSec").style.display="none";}document.getElementById("sSessions").textContent=d.sessions!=null?d.sessions:"—";document.getElementById("sSkills").textContent=d.skills!=null?d.skills:"—";document.getElementById("sFiles").textContent=d.files!=null?d.files:"—";document.getElementById("sCronOk").textContent=d.cronsOk!=null?d.cronsOk:"—";document.getElementById("sCronSkip").textContent=d.cronsSkipped!=null?d.cronsSkipped:"—";document.getElementById("sCronErr").textContent=d.cronsError!=null?d.cronsError:"—";var crons=d.cronJobs||[];document.getElementById("cronList").innerHTML=crons.length?crons.map(function(c){var dot=c.status==="ok"?"ok":c.status==="error"?"error":c.status==="skipped"?"skipped":"idle";return "<div class=\"cron-item\"><div class=\"cron-dot "+dot+"\"></div><div class=\"cron-name\">"+es(c.name||"未知")+"</div><div class=\"cron-next\">"+(c.next||"")+"</div></div>";}).join(""):"<div class=\"empty\">暂无Cron任务</div>";var skills=d.skillList||[];var scenes=d.skillScenes||{};document.getElementById("skillList").innerHTML=skills.length?skills.map(function(s){var sc=scenes[s]||"";return "<div class=\"skill-book\">"+es(s)+(sc?"<div class=\"skill-scene\">"+es(sc)+"</div>":"")+"</div>";}).join(""):"<div class=\"empty\">暂无技能</div>";var files=d.memoryFiles||[];document.getElementById("cabinetList").innerHTML=files.length?files.map(function(f){var name=(f.name||f).replace(".md","");return "<span class=\"cabinet-btn\">"+es(name)+"</span>";}).join(""):"<div class=\"empty\">暂无文件</div>";var now=new Date();document.getElementById("hDate").textContent=now.toLocaleDateString("zh-CN",{weekday:"short",month:"numeric",day:"numeric"});}
+async function fetchGuestbook(){renderMessagesLocal();}
+document.getElementById("gbSubmit").addEventListener("click",submitGb);document.getElementById("gbInput").addEventListener("keydown",function(e){if(e.key==="Enter")submitGb();});
+async function submitGb(){var input=document.getElementById("gbInput");var text=input.value.trim();if(!text){alert("请输入留言内容");return;}var btn=document.getElementById("gbSubmit");btn.textContent="...";btn.disabled=true;try{var key="monica_gb_v1";var msgs=JSON.parse(localStorage.getItem(key)||"[]");msgs.push({name:"访客",text:text,time:new Date().toISOString()});if(msgs.length>50)msgs=msgs.slice(-50);localStorage.setItem(key,JSON.stringify(msgs));document.getElementById("gbInput").value="";renderMessagesLocal();}finally{btn.textContent="发送";btn.disabled=false;}}function renderMessagesLocal(){var key="monica_gb_v1";var msgs=JSON.parse(localStorage.getItem(key)||"[]");var el=document.getElementById("gbMsgs");if(!msgs.length){el.innerHTML='<div class="empty">还没有留言，来说点什么吧！</div>';return;}var html=msgs.slice().reverse().map(function(m){return '<div class="gb-msg"><div><span class="gb-author">'+escapeHtml(m.name||"访客")+'</span><span class="gb-time">'+timeAgo(m.time)+'</span></div><div class="gb-text">'+escapeHtml(m.text||"")+'</div></div>';}).join("");el.innerHTML=html;}function escapeHtml(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
+async function weather(){try{var r=await fetch("https://wttr.in/%E8%8B%8F%E5%B7%9E?format=%c%t&lang=zh",{signal:AbortSignal.timeout(4000)});if(r.ok){var t=await r.text();document.getElementById("hWeather").textContent=t.trim();}}catch(e){}}
+initTheme();
+(function(){fetchState().then(renderState);weather();fetchGuestbook();document.getElementById("refreshTime").textContent="刷新于 "+new Date().toLocaleTimeString("zh-CN");})();
+setInterval(function(){fetchState().then(renderState);document.getElementById("refreshTime").textContent="自动刷新 "+new Date().toLocaleTimeString("zh-CN");},30000);
+</script>
+</body>
+</html>
