@@ -1,8 +1,287 @@
 {
   "name": "Monica",
-  "state": "celebrating",
-  "detail": "monica-landing 完成部署上线，状态实时同步中",
-  "progress": 100,
-  "updated_at": "2026-04-03T08:21:56.541001",
-  "updated": "2026-04-03T00:26:54Z"
+  "state": "idle",
+  "detail": "",
+  "progress": 0,
+  "topTask": "主动想起点低改造",
+  "todayTodos": [
+    {
+      "priority": "P1",
+      "text": "主动想起点低改造"
+    },
+    {
+      "priority": "P1",
+      "text": "学习闭环改造（learnings→行动）"
+    },
+    {
+      "priority": "P1",
+      "text": "早安简报cron改造（有温度）"
+    },
+    {
+      "priority": "P2",
+      "text": "关注隐私合规赛道（AI合规工具方向）"
+    },
+    {
+      "priority": "P2",
+      "text": "修向量搜索（模型路径/哈尔滨）"
+    }
+  ],
+  "todayThinking": "> 每日开始前填写，当天更新。作为每日反思的开头。 --- **🔴 今天最重要的事：**",
+  "sessions": 1,
+  "skills": 22,
+  "files": 12,
+  "cronsOk": 0,
+  "cronsError": 0,
+  "cronsSkipped": 0,
+  "cronJobs": [
+    {
+      "name": "│",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "◇  C",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│                                                           ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│  - plugins.entries.minimax-p",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│    minimax-p",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│    plugins c",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│  - plugins.all",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│    entry ign",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "│                                                           ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "├───────────────────────────────────────────────────────────",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "ID                                   Name                   ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "d22e0586-2278-4d67-9e98-7adca8c07f67 M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "ab68d1d8-8cd9-46ae-9e59-329c06b5757e 📚 每日内容精选（每天10:00）      ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "4f122e07-5801-44d4-a80b-9cb594d354cc M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "9684732a-0929-4443-ba56-383e58ca2f5f 股票下午（13:15）            ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "7d11c7d0-e288-4d4e-9d1e-f701473b7711 周报生成（周五15:00）          ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "2142e734-58b6-4a0a-a13f-ffeeb03369a6 股票收盘（15:15）            ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "0438c9e4-f48b-4653-883f-5a71f11966e5 M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "fd601d71-3f12-4e86-8385-84d54d12cddc M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "83ac2cdb-247a-473a-a52f-9ddcce82128f 小红书选题扫描（21:00）         ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "6964ac64-3444-4a64-a9b6-8a418ea68412 M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "a456ab87-1584-423a-943f-6e7b1e853eec M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "fc0b1d7f-c018-49a2-9319-f4fccdfc3e68 📚 每日英语口语素材（8:30）       ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "f732131e-0b7d-41f6-b5b8-26f607f1c693 早间ONE thing（每天8:45）    ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "9f8e3a2c-7d1b-4e5a-8c6f-0d3e9b7a2f4d 📋 早安简报（每天9:15）         ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "3927308f-ef54-459e-bfc0-74d484406a94 M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "19036116-7ad7-4679-a1f9-141425802d79 M",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "96262ff6-8398-40dc-985d-c964e68e64c8 股票盘前（9:15）             ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "5ae2dd4f-2a42-4ddc-a953-154447c44fe2 🏠 公积金到账提醒              ",
+      "status": "idle",
+      "next": ""
+    },
+    {
+      "name": "d1d09b4f-8b50-465e-970a-163cc00ecedb 💰 储蓄月度提醒               ",
+      "status": "idle",
+      "next": ""
+    }
+  ],
+  "skillList": [
+    "stock-analysis",
+    "travel-assistant",
+    "notion",
+    "goal-tracker",
+    "english-tts",
+    "content-harvester",
+    "deep-research-pro",
+    "travel-cn",
+    "knowledge-base-agent",
+    "adhd-planner",
+    "beeminder",
+    "agent-browser",
+    "competitor-analysis",
+    "wechat-publish",
+    "agent-team-ppt",
+    "compliance-check",
+    "prd-writer",
+    "arxiv-search-collector",
+    "brain",
+    "presentation-designer",
+    "coding-agent",
+    "healthcheck"
+  ],
+  "skillScenes": {
+    "stock-analysis": "股票分析·每日4次推送",
+    "travel-assistant": "旅行规划·行程设计",
+    "notion": "Notion·目标追踪",
+    "goal-tracker": "储蓄追踪·财务目标",
+    "english-tts": "英语学习·语音练习",
+    "content-harvester": "内容收割·知识入库",
+    "deep-research-pro": "深度调研·主题研究",
+    "travel-cn": "国内游·行程规划",
+    "knowledge-base-agent": "知识库·文档管理",
+    "adhd-planner": "每日规划·ADHD友好",
+    "beeminder": "目标追踪·习惯养成",
+    "agent-browser": "浏览器·登录页面",
+    "competitor-analysis": "竞品分析·SEO调研",
+    "wechat-publish": "公众号·内容发布",
+    "agent-team-ppt": "PPT制作·演示材料",
+    "compliance-check": "合规检查·风控审计",
+    "prd-writer": "PRD·需求文档",
+    "arxiv-search-collector": "学术搜索·论文收集",
+    "brain": "知识图谱·关系网络",
+    "presentation-designer": "演示设计·风格参考",
+    "coding-agent": "代码开发·任务执行",
+    "healthcheck": "安全检查·系统诊断"
+  },
+  "memoryFiles": [
+    {
+      "name": "2026-04-02.md",
+      "updated": "2026-04-03T00:46:23.095025"
+    },
+    {
+      "name": "2026-04-02-skip-startup-sequence.md",
+      "updated": "2026-04-02T13:37:16.649692"
+    },
+    {
+      "name": "2026-04-02-breakup-advice.md",
+      "updated": "2026-04-02T13:35:19.890145"
+    },
+    {
+      "name": "todo.md",
+      "updated": "2026-04-02T11:24:18.631811"
+    },
+    {
+      "name": "one-thing-today.md",
+      "updated": "2026-04-02T09:03:10.926051"
+    },
+    {
+      "name": "2026-04-01-judgment-transformation.md",
+      "updated": "2026-04-01T16:02:45.757194"
+    },
+    {
+      "name": "2026-04-01.md",
+      "updated": "2026-04-01T15:18:44.793486"
+    },
+    {
+      "name": "todo-mcp.md",
+      "updated": "2026-04-01T12:35:38.198564"
+    },
+    {
+      "name": "2026-03-31.md",
+      "updated": "2026-03-31T19:17:10.915338"
+    },
+    {
+      "name": "2026-04-01-preview.md",
+      "updated": "2026-03-31T17:51:28.408392"
+    },
+    {
+      "name": "current-tasks.md",
+      "updated": "2026-03-31T17:50:40.489363"
+    },
+    {
+      "name": "2026-03-30.md",
+      "updated": "2026-03-30T18:19:40.334986"
+    }
+  ],
+  "updated": "2026-04-03T09:32:22.601735"
 }
